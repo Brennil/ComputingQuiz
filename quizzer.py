@@ -10,7 +10,7 @@ def load_sheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive", 'https://www.googleapis.com/auth/spreadsheets']
     creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
     client = gspread.authorize(creds)
-    sheet = client.open_by_url("Computing Keywords (2025 Syllabus) (Quizzer)").sheet1
+    sheet = client.open("Computing Keywords (2025 Syllabus) (Quizzer)").sheet1
     data = sheet.get_all_records()
     return pd.DataFrame(data)
 
