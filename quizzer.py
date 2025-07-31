@@ -3,6 +3,7 @@ import pandas as pd
 import random
 import gspread
 from datetime import datetime
+import pytz
 from google.oauth2 import service_account
 
 # === CONFIGURATION ===
@@ -23,7 +24,7 @@ try:
     responses_ws = spread.worksheet("UserLog")
 except:
     responses_ws = spread.add_worksheet(title="UserLog", rows="1000", cols="10")
-    responses_ws.append_row(["Email", "Name", "Chapter", "Score", "Timestamp"])
+    responses_ws.append_row(["Email", "Name", "Chapter", "Accuracy", "Timestamp"])
 
 def login_screen():
     st.subheader("Please log in to play.")
@@ -85,11 +86,14 @@ else:
                 else:
                     st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
 
-            st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
+            st.markdown(f"### 🎯 You got **{correct} out of {len(questions)}** correct.")
 
             # === LOG RESULT ===
-            timestamp = datetime.now().strftime("%Y-%m-%d %H+8:%M:%S")
-            responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
+            utc_now = datetime.now(pytz.utc)
+            local_tz = pytz.timezone('ETC/GMT-8')
+            local_time = utc_now.astimezone(local_tz)
+            timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
+            responses_ws.append_row([st.user.email, st.user.name, chapter, correct/len(questions)*100, timestamp])
             st.success("📥 Your attempt has been recorded.")
 
             if st.button("🔁 Start a New Quiz"):
