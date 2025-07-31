@@ -19,6 +19,16 @@ def load_sheet():
     print(data)
     return pd.DataFrame(data)
 
+def login_screen():
+    st.header("This app is private.")
+    st.subheader("Please log in.")
+    st.button("Log in with Google", on_click=st.login)
+
+if not st.user.is_logged_in:
+    login_screen()
+else:
+    st.header(f"Welcome, {st.user.name}!")
+
 df = load_sheet()
 
 # === STORE SELECTED QUESTIONS IN SESSION STATE ===
@@ -57,3 +67,5 @@ if submitted:
 if st.button("🔁 Start a New Quiz"):
     del st.session_state.questions
     st.experimental_rerun()
+    
+st.button("Log out", on_click=st.logout)
