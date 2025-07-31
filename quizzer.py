@@ -21,8 +21,11 @@ def load_sheet():
 
 df = load_sheet()
 
-# === RANDOMLY SELECT 10 QUESTIONS ===
-questions = df.sample(n=10, random_state=random.randint(0, 10000)).reset_index(drop=True)
+# === STORE SELECTED QUESTIONS IN SESSION STATE ===
+if "questions" not in st.session_state:
+    st.session_state.questions = df.sample(n=10, random_state=random.randint(0, 99999)).reset_index(drop=True)
+
+questions = st.session_state.questions
 
 st.title("📝 Keywords Quiz")
 st.write("Type your answers and click Submit to see your score.")
@@ -50,3 +53,7 @@ if submitted:
             st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
 
     st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
+
+if st.button("🔁 Start a New Quiz"):
+    del st.session_state.questions
+    st.experimental_rerun()
