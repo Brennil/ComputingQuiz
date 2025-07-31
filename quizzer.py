@@ -47,7 +47,7 @@ else:
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state:
-            st.session_state.questions = df.sample(n=10, random_state=random.randint(0, 99999)).reset_index(drop=True)
+            st.session_state.questions = df.sample(n=min(len(sheet.rows),10), random_state=random.randint(0, 99999)).reset_index(drop=True)
 
         questions = st.session_state.questions
 
