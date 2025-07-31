@@ -40,7 +40,8 @@ else:
 
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
-    if st.button("Go!"):
+    go = st.button("Go!")
+    if go:
         if "questions" in st.session_state: 
             del st.session_state.questions
         sheet = spread.worksheet(chapter)
