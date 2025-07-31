@@ -4,16 +4,13 @@ import random
 import gspread
 from google.oauth2 import service_account
 
-# === CONFIGURATION ===
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1JrlwY69DVRnOjFZvaE0CX_PLZNelw3_qEBu0WhgcHPQ/edit#gid=0"
-
 # === GOOGLE SHEETS AUTH ===
 @st.cache_resource
 def load_sheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive", 'https://www.googleapis.com/auth/spreadsheets']
     credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
     client = gspread.authorize(creds)
-    sheet = client.open_by_url(SHEET_URL).sheet1
+    sheet = client.open_by_url(Computing Keywords (2025 Syllabus) (Quizzer)).sheet1
     data = sheet.get_all_records()
     return pd.DataFrame(data)
 
