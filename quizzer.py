@@ -61,6 +61,7 @@ else:
                 st.subheader(f"Q{i+1}: {row['Definition']}")
                 answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}")
                 responses.append(answer)
+            go = False
             submitted = st.form_submit_button("Submit")
 
         # === FEEDBACK ===
