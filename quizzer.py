@@ -24,14 +24,14 @@ df = load_sheet()
 # === RANDOMLY SELECT 10 QUESTIONS ===
 questions = df.sample(n=10, random_state=random.randint(0, 10000)).reset_index(drop=True)
 
-st.title("📝 Fill in the Blank Quiz")
+st.title("📝 Keywords Quiz")
 st.write("Type your answers and click Submit to see your score.")
 
 # === FORM ===
 with st.form("quiz_form"):
     responses = []
     for i, row in questions.iterrows():
-        st.subheader(f"Q{i+1}: {row['Question']}")
+        st.subheader(f"Q{i+1}: {row['Definition']}")
         answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}")
         responses.append(answer)
     submitted = st.form_submit_button("Submit")
@@ -42,7 +42,7 @@ if submitted:
     st.markdown("## ✅ Results")
     for i, row in questions.iterrows():
         user_answer = responses[i].strip().lower()
-        correct_answer = str(row['Answer']).strip().lower()
+        correct_answer = str(row['Key Word']).strip().lower()
         if user_answer == correct_answer:
             st.success(f"Q{i+1}: Correct ✅")
             correct += 1
