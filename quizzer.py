@@ -41,6 +41,8 @@ else:
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
     if st.button("Go!"):
+        if "questions" in st.session_state: 
+            del st.session_state.questions
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
