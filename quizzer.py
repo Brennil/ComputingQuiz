@@ -47,6 +47,6 @@ if submitted:
             st.success(f"Q{i+1}: Correct ✅")
             correct += 1
         else:
-            st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Answer']}**)")
+            st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
 
     st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
