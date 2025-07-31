@@ -22,9 +22,9 @@ def load_sheet(sheet_name):
 
 # === LOAD OR CREATE USERLOG ===
 try:
-    responses_ws = spreadsheet.worksheet("UserLog")
+    responses_ws = spread.worksheet("UserLog")
 except:
-    responses_ws = spreadsheet.add_worksheet(title="UserLog", rows="1000", cols="10")
+    responses_ws = spread.add_worksheet(title="UserLog", rows="1000", cols="10")
     responses_ws.append_row(["Email", "Name", "Chapter", "Score", "Timestamp"])
 
 def login_screen():
