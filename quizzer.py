@@ -40,6 +40,7 @@ else:
 
     if "quiz_started" not in st.session_state:
         st.session_state.quiz_started = False
+        st.session_state.questions = None  
         
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
