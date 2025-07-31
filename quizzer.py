@@ -5,7 +5,6 @@ import gspread
 from google.oauth2 import service_account
 
 # === GOOGLE SHEETS AUTH ===
-@st.cache_resource
 def load_sheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive", 'https://www.googleapis.com/auth/spreadsheets']
     creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
