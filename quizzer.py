@@ -12,6 +12,7 @@ def load_sheet():
     client = gspread.authorize(creds)
     sheet = client.open("Computing Keywords (2025 Syllabus) (Quizzer)").sheet1
     data = sheet.get_all_records()
+    print(data)
     return pd.DataFrame(data)
 
 df = load_sheet()
