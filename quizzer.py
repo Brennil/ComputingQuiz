@@ -93,6 +93,5 @@ else:
 
     elif reset:
         del st.session_state.questions
-        st.experimental_rerun()
     
     st.button("Log out", on_click=st.logout)
