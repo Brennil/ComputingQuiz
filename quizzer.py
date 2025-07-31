@@ -55,7 +55,7 @@ else:
         df = pd.DataFrame(data)
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
-        if "questions" not in st.session_state:
+        if "questions" not in st.session_state or st.session_state.questions == None:
             st.session_state.questions = df.sample(n=min(len(df),10), random_state=random.randint(0, 99999)).reset_index(drop=True)
 
         questions = st.session_state.questions
