@@ -43,10 +43,13 @@ else:
     col1, col2, col3, col4 = st.columns([1, 1, 1, 1]) # Create two equal-width columns
     with col1:
         go = st.button("Go!")
-    with col2:
-        reset = st.button("Reset")
-        
+
+    if "quiz_started" not in st.session_state:
+        st.session_state.quiz_started = False
+
     if go:
+        st.session_state.quiz_started = True
+        st.session_state.questions = None  
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
@@ -68,30 +71,27 @@ else:
 
         # === FEEDBACK ===
         st.write("Submitted!", responses)
-    elif submitted:
-        correct = 0
-        st.markdown("## ✅ Results")
-        for i, row in questions.iterrows():
-            user_answer = responses[i].strip().lower()
-            correct_answer = str(row['Key Word']).strip().lower()
-            if user_answer == correct_answer:
-                st.success(f"Q{i+1}: Correct ✅")
-                correct += 1
-            else:
-                st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
+        if submitted:
+            correct = 0
+            st.markdown("## ✅ Results")
+            for i, row in questions.iterrows():
+                user_answer = responses[i].strip().lower()
+                correct_answer = str(row['Key Word']).strip().lower()
+                if user_answer == correct_answer:
+                    st.success(f"Q{i+1}: Correct ✅")
+                    correct += 1
+                else:
+                    st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
 
-        st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
+            st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
 
-        # === LOG RESULT ===
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
-        st.success("📥 Your attempt has been recorded.")
+            # === LOG RESULT ===
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
+            st.success("📥 Your attempt has been recorded.")
 
-        if st.button("🔁 Start a New Quiz"):
-            del st.session_state.questions
-            st.experimental_rerun()
-
-    elif reset:
-        del st.session_state.questions
+            if st.button("🔁 Start a New Quiz"):
+                del st.session_state.questions
+                st.experimental_rerun()
     
     st.button("Log out", on_click=st.logout)
