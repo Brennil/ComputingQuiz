@@ -40,7 +40,12 @@ else:
 
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
-    go = st.button("Go!")
+    col1, col2 = st.columns([1, 1]) # Create two equal-width columns
+    with col1:
+        go = st.button("Go!")
+    with col2:
+        reset = st.button("Reset")
+        
     if go:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
@@ -81,8 +86,12 @@ else:
             responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
             st.success("📥 Your attempt has been recorded.")
 
-        if st.button("🔁 Start a New Quiz"):
-            del st.session_state.questions
-            st.experimental_rerun()
+            if st.button("🔁 Start a New Quiz"):
+                del st.session_state.questions
+                st.experimental_rerun()
+
+    elif reset:
+        del st.session_state.questions
+        st.experimental_rerun()
     
     st.button("Log out", on_click=st.logout)
