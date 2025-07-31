@@ -8,7 +8,7 @@ from google.oauth2 import service_account
 @st.cache_resource
 def load_sheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive", 'https://www.googleapis.com/auth/spreadsheets']
-    credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
+    creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
     client = gspread.authorize(creds)
     sheet = client.open_by_url("Computing Keywords (2025 Syllabus) (Quizzer)").sheet1
     data = sheet.get_all_records()
