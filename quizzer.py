@@ -2,22 +2,30 @@ import streamlit as st
 import pandas as pd
 import random
 import gspread
+from datetime import datetime
 from google.oauth2 import service_account
 
 # === CONFIGURATION ===
 SHEET_URL = "https://docs.google.com/spreadsheets/d/1JrlwY69DVRnOjFZvaE0CX_PLZNelw3_qEBu0WhgcHPQ/edit#gid=0"
 
 # === GOOGLE SHEETS AUTH ===
-def load_sheet():
+def load_sheet(sheet_name):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive", 'https://www.googleapis.com/auth/spreadsheets']
     creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes = scope)
     client = gspread.authorize(creds)
     spread = client.open_by_url(SHEET_URL)
     print(spread)
-    sheet = spread.worksheet("01")
+    sheet = spread.worksheet(sheet_name)
     data = sheet.get_all_records()
     print(data)
     return pd.DataFrame(data)
+
+# === LOAD OR CREATE USERLOG ===
+try:
+    responses_ws = spreadsheet.worksheet("UserLog")
+except:
+    responses_ws = spreadsheet.add_worksheet(title="UserLog", rows="1000", cols="10")
+    responses_ws.append_row(["Email", "Name", "Chapter", "Score", "Timestamp"])
 
 def login_screen():
     st.subheader("Please log in to play.")
@@ -32,7 +40,10 @@ else:
     st.write("Type your answers and click Submit to see your score.")
     st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes as necessary.")
 
-    df = load_sheet()
+    options = ["01", "02", "03"]
+    chapter = st.selectbox("Choose a chapter:", options)
+
+    df = load_sheet(chapter)
 
     # === STORE SELECTED QUESTIONS IN SESSION STATE ===
     if "questions" not in st.session_state:
@@ -63,6 +74,11 @@ else:
                 st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
 
         st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
+
+    # === LOG RESULT ===
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
+    st.success("📥 Your attempt has been recorded.")
 
     if st.button("🔁 Start a New Quiz"):
         del st.session_state.questions
