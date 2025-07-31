@@ -52,13 +52,15 @@ else:
         st.session_state.quiz_started = True
         st.session_state.questions = None  
 
+    st.write(type(st.session_state.questions))
+
     if st.session_state.quiz_started:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
-        if "questions" not in st.session_state or st.session_state.questions == None:
+        if "questions" not in st.session_state or st.session_state.questions is None:
             st.session_state.questions = df.sample(n=min(len(df),10), random_state=random.randint(0, 99999)).reset_index(drop=True)
 
         questions = st.session_state.questions
