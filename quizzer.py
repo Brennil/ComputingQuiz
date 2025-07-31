@@ -67,7 +67,7 @@ else:
             submitted = st.form_submit_button("Submit")
 
         # === FEEDBACK ===
-        st.write("Submitted!", submitted)
+        st.write("Submitted!", responses)
         if submitted:
             correct = 0
             st.markdown("## ✅ Results")
