@@ -42,8 +42,6 @@ else:
     chapter = st.selectbox("Choose a chapter:", options)
     go = st.button("Go!")
     if go:
-        if "questions" in st.session_state: 
-            del st.session_state.questions
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
@@ -61,7 +59,6 @@ else:
                 st.subheader(f"Q{i+1}: {row['Definition']}")
                 answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}")
                 responses.append(answer)
-            go = False
             submitted = st.form_submit_button("Submit")
 
         # === FEEDBACK ===
@@ -84,8 +81,8 @@ else:
             responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
             st.success("📥 Your attempt has been recorded.")
 
-            if st.button("🔁 Start a New Quiz"):
-                del st.session_state.questions
-                st.experimental_rerun()
+        if st.button("🔁 Start a New Quiz"):
+            del st.session_state.questions
+            st.experimental_rerun()
     
     st.button("Log out", on_click=st.logout)
