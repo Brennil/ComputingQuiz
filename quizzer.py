@@ -38,18 +38,20 @@ else:
     st.write("Type your answers and click Submit to see your score.")
     st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes as necessary.")
 
+    if "quiz_started" not in st.session_state:
+        st.session_state.quiz_started = False
+        
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
     col1, col2, col3, col4 = st.columns([1, 1, 1, 1]) # Create two equal-width columns
     with col1:
         go = st.button("Go!")
 
-    if "quiz_started" not in st.session_state:
-        st.session_state.quiz_started = False
-
     if go:
         st.session_state.quiz_started = True
         st.session_state.questions = None  
+
+    if st.session_state.quiz_started:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
