@@ -40,7 +40,7 @@ else:
 
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
-    col1, col2 = st.columns([1, 1]) # Create two equal-width columns
+    col1, col2, col3, col4 = st.columns([1, 1, 1, 1]) # Create two equal-width columns
     with col1:
         go = st.button("Go!")
     with col2:
