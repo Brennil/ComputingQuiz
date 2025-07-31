@@ -88,7 +88,7 @@ else:
             st.markdown(f"### 🎯 You got **{correct} out of 10** correct.")
 
             # === LOG RESULT ===
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.now().strftime("%Y-%m-%d %H+8:%M:%S")
             responses_ws.append_row([st.user.email, st.user.name, chapter, correct, timestamp])
             st.success("📥 Your attempt has been recorded.")
 
