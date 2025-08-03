@@ -59,8 +59,8 @@ if go:
 
     # table
     df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
+    df.round(2)
     df = df.style.set_properties().set_table_styles(styles)
-    styled_df = df.style.format("{:.2f}")
     
     # CSS to inject contained in a string
     hide_table_row_index = """
