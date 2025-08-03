@@ -38,14 +38,8 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
-    top_ranked = [(entry[1],round(entry[0],2)) for entry in top_sorted] 
-    for i in range(len(top_ranked)):
-        score = str(top_ranked[i][1])
-        while score[-1] == "0":
-            score = score[:-1]
-        top_ranked[i] = (top_ranked[i][0],score)
+    top_ranked = [(entry[1],str(round(entry[0],2))) for entry in top_sorted] 
         
-
      # style
     th_props = [
     ('text-align', 'center'),
