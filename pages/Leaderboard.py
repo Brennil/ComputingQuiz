@@ -38,7 +38,7 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
-    top_ranked = [(entry[1],entry[0]) for entry in top_sorted] 
+    top_ranked = [(entry[1],round(entry[0],2)) for entry in top_sorted] 
 
      # style
     th_props = [
