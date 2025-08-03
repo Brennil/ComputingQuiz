@@ -93,7 +93,7 @@ else:
             local_tz = pytz.timezone('ETC/GMT-8')
             local_time = utc_now.astimezone(local_tz)
             timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
-            responses_ws.append_row([st.user.email, st.user.name, chapter, correct/len(questions)*100, timestamp])
+            responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp])
             st.success("📥 Your attempt has been recorded.")
 
             if st.button("🔁 Start a New Quiz"):
