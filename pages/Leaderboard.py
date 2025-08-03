@@ -31,10 +31,10 @@ if go:
     df = pd.DataFrame(data)
     top = {}
     for i, row in df.iterrows():
-        if row["Names"] in top.keys() and float(row["Accuracy"]) > top[row["Names"]]:
-            top[row["Names"]] = float(row["Accuracy"])
-        elif not row["Names"] in top.keys():
-            top[row["Names"]] = float(row["Accuracy"])
+        if row["Name"] in top.keys() and float(row["Accuracy"]) > top[row["Name"]]:
+            top[row["Name"]] = float(row["Accuracy"])
+        elif not row["Name"] in top.keys():
+            top[row["Name"]] = float(row["Accuracy"])
     st.write(top)
           
   
