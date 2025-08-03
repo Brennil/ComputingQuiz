@@ -60,6 +60,7 @@ if go:
     # table
     df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
     df = df.style.set_properties().set_table_styles(styles)
+    pd.set_option('display.precision', 2)
     
     # CSS to inject contained in a string
     hide_table_row_index = """
