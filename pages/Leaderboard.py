@@ -42,7 +42,7 @@ if go:
         
      # style
     th_props = [
-    ('text-align', 'center'),
+    ('text-align', 'left'),
     ('font-weight', 'bold'),
     ('color', '#6d6d6d'),
     ('background-color', '#e7c6ff')
@@ -74,5 +74,3 @@ if go:
     
     # Display a static table
     st.table(df)
-    st.write(top_ranked)
-  
