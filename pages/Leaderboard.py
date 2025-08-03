@@ -38,7 +38,7 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
-    top_ranked = [(entry[1],str(round(entry[0],2))) for entry in top_sorted] 
+    top_ranked = [(str(i+1), top_sorted[i][1],str(round(top_sorted[i][0],2))) for i in range(len(top_sorted))] 
         
      # style
     th_props = [
@@ -58,7 +58,7 @@ if go:
     ]
 
     # table
-    df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
+    df = pd.DataFrame(top_ranked, columns = ["Rank","Name","Accuracy (%)"])
     df = df.style.set_properties().set_table_styles(styles)
     
     # CSS to inject contained in a string
