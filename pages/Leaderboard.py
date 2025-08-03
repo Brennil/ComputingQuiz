@@ -35,6 +35,8 @@ if go:
             top[row["Name"]] = float(row["Accuracy"])
         elif not row["Name"] in top.keys():
             top[row["Name"]] = float(row["Accuracy"])
-    st.write(top)
+    
+    top_list = [(val, key) for key,val in top]
+    st.write(top_list)
           
   
