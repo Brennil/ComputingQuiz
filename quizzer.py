@@ -44,9 +44,9 @@ else:
 
         # === LOAD OR CREATE USERLOG ===
         log = "Log"+chapter
-        st.write(log)
         try:
             responses_ws = spread.worksheet(log)
+            st.write(log)
         except:
             responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
             responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"])
