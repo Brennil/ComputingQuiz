@@ -45,12 +45,16 @@ if go:
     ('text-align', 'center'),
     ('font-weight', 'bold'),
     ('color', '#6d6d6d'),
-    ('background-color', '#f3ceff')
+    ('background-color', '#e7c6ff')
     ]
-                               
-                                 
+
+    td_props = [
+    ('text-align', 'center')
+    ]
+                                                 
     styles = [
     dict(selector="th", props=th_props),
+    dict(selector="td", props=td_props)
     ]
 
     # table
