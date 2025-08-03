@@ -19,13 +19,6 @@ def load_spread():
 
 spread = load_spread()
 
-# === LOAD OR CREATE USERLOG ===
-try:
-    responses_ws = spread.worksheet("UserLog")
-except:
-    responses_ws = spread.add_worksheet(title="UserLog", rows="1000", cols="10")
-    responses_ws.append_row(["Email", "Name", "Chapter", "Accuracy", "Timestamp"])
-
 def login_screen():
     st.subheader("Please log in to play.")
     st.button("Log in with Google", on_click=st.login)
@@ -45,11 +38,18 @@ else:
         
     options = ["01", "02", "03"]
     chapter = st.selectbox("Choose a chapter:", options)
-    col1, col2, col3, col4 = st.columns([1, 1, 1, 1]) # Create two equal-width columns
-    with col1:
-        go = st.button("Go!")
+    go = st.button("Go!")
 
     if go:
+
+        # === LOAD OR CREATE USERLOG ===
+        log = "Log"+chapter
+        try:
+            responses_ws = spread.worksheet(log)
+        except:
+            responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
+            responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"])
+            
         st.session_state.quiz_started = True
         st.session_state.questions = None  
 
