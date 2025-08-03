@@ -40,7 +40,14 @@ else:
     chapter = st.selectbox("Choose a chapter:", options)
     go = st.button("Go!")
 
-    if go:
+    if go: 
+        st.session_state.quiz_started = True
+        st.session_state.questions = None  
+
+    if st.session_state.quiz_started:
+        sheet = spread.worksheet(chapter)
+        data = sheet.get_all_records()
+        df = pd.DataFrame(data)
 
         # === LOAD OR CREATE USERLOG ===
         log = "Log"+chapter
@@ -50,14 +57,6 @@ else:
         except:
             responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
             responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"])
-            
-        st.session_state.quiz_started = True
-        st.session_state.questions = None  
-
-    if st.session_state.quiz_started:
-        sheet = spread.worksheet(chapter)
-        data = sheet.get_all_records()
-        df = pd.DataFrame(data)
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
