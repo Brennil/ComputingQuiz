@@ -58,7 +58,7 @@ if go:
     ]
 
     # table
-    df = pd.DataFrame(top_ranked, columns = ["Rank","Name","Accuracy (%)"])
+    df = pd.DataFrame(top_ranked[:5], columns = ["Rank","Name","Accuracy (%)"])
     df = df.style.set_properties().set_table_styles(styles)
     
     # CSS to inject contained in a string
