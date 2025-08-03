@@ -37,6 +37,7 @@ if go:
             top[row["Name"]] = float(row["Accuracy"])
     
     top_list = [(top[key], key) for key in top.keys()]
-    st.write(top_list)
+    top_sorted = sorted(top_list, reverse=True)
+    print(top_sorted)
           
   
