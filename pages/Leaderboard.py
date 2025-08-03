@@ -38,6 +38,6 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
-    print(top_sorted)
+    st.write(top_sorted)
           
   
