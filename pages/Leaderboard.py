@@ -74,6 +74,6 @@ if go:
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     
     # Display a static table
-    st.table(styled_df)
+    st.table(df)
     st.write(top_ranked)
   
