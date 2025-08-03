@@ -39,8 +39,23 @@ if go:
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
     top_ranked = [(entry[1],entry[0]) for entry in top_sorted] 
+
+     # style
+    th_props = [
+    ('text-align', 'center'),
+    ('font-weight', 'bold'),
+    ('color', '#6d6d6d'),
+    ('background-color', '#f3ceff')
+    ]
+                               
+                                 
+    styles = [
+    dict(selector="th", props=th_props),
+    ]
+
     # table
     df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
+    df = df.style.set_properties().set_table_styles(styles)
     
     # CSS to inject contained in a string
     hide_table_row_index = """
@@ -55,6 +70,5 @@ if go:
     
     # Display a static table
     st.table(df)
-    st.write(top_ranked)
           
   
