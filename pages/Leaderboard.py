@@ -60,7 +60,7 @@ if go:
     # table
     df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
     df = df.style.set_properties().set_table_styles(styles)
-    pd.set_option('display.precision', 2)
+    styled_df = df.style.format("{:.2f}")
     
     # CSS to inject contained in a string
     hide_table_row_index = """
@@ -74,6 +74,6 @@ if go:
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     
     # Display a static table
-    st.table(df)
+    st.table(styled_df)
     st.write(top_ranked)
   
