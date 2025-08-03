@@ -74,5 +74,5 @@ if go:
     
     # Display a static table
     st.table(df)
-          
+    st.write(top_ranked)
   
