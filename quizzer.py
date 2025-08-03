@@ -44,6 +44,7 @@ else:
 
         # === LOAD OR CREATE USERLOG ===
         log = "Log"+chapter
+        st.write(log)
         try:
             responses_ws = spread.worksheet(log)
         except:
