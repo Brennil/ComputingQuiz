@@ -45,7 +45,7 @@ if go:
     ('text-align', 'left'),
     ('font-weight', 'bold'),
     ('color', '#6d6d6d'),
-    ('background-color', '#a193d6')
+    ('background-color', '#c8bbdc')
     ]
 
     td_props = [
