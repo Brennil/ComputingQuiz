@@ -59,7 +59,6 @@ if go:
 
     # table
     df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
-    df.round(2)
     df = df.style.set_properties().set_table_styles(styles)
     
     # CSS to inject contained in a string
@@ -74,6 +73,6 @@ if go:
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     
     # Display a static table
-    st.table(df)
+    st.table(df.round(2))
     st.write(top_ranked)
   
