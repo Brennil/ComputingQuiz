@@ -38,8 +38,9 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
+    top_ranked = [(entry[1],entry[0]) for entry in top_sorted] 
     # table
-    df = pd.DataFrame(top_sorted)
+    df = pd.DataFrame(top_ranked, columns = ["Name","Accuracy (%)"])
     
     # CSS to inject contained in a string
     hide_table_row_index = """
@@ -54,6 +55,6 @@ if go:
     
     # Display a static table
     st.table(df)
-    st.write(top_sorted)
+    st.write(top_ranked)
           
   
