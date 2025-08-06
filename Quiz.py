@@ -56,7 +56,7 @@ else:
             st.write(log)
         except:
             responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
-            qn = [int(x)+1 for x in range(len(df))]
+            qn = [x+1 for x in range(len(df))]
             responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"]+qn)
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
