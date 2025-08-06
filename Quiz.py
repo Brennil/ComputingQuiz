@@ -59,6 +59,17 @@ else:
             qn = [x+1 for x in range(len(df))]
             responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"]+qn)
 
+         # === FIND HISTORY OF STUDENT'S ATTEMPTS ===
+        logsheet = spread.worksheet(log)
+        logdata = sheet.get_all_records()
+        records = pd.DataFrame(logdata)
+        history = [0]*len(df)
+        for row in records:
+            if row["Email"] == st.user.email:
+                history = history + df[4:]
+                st.write(history)
+                
+
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
             st.session_state.questions = df.sample(n=min(len(df),10), random_state=random.randint(0, 99999)).reset_index(drop=True)
