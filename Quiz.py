@@ -70,7 +70,7 @@ else:
                 history = history + row.iloc[4:]
         for i in range(len(history)):
             mistakes = (attempt_count - history[i])/attempt_count
-            history[i] = mistakes + 0.1
+            history.iloc[i] = mistakes + 0.1
                 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
