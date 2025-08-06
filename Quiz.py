@@ -84,7 +84,7 @@ else:
                 correct_answer = str(row['Key Word']).strip().lower()
                 if user_answer == correct_answer:
                     st.success(f"Q{i+1}: Correct ✅")
-                    correct_list[i] = 1
+                    correct_list[int(row['Question'])-1] = 1
                     correct += 1
                 else:
                     st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
