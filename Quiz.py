@@ -62,18 +62,19 @@ else:
         logsheet = spread.worksheet(log)
         logdata = logsheet.get_all_records()
         records = pd.DataFrame(logdata)
-        st.write(records)
         history = [0]*len(df)
+        attempt_count = 0
         for i, row in records.iterrows():
-            st.write(row)
             if row['Email'] == st.user.email:
+                attempt_count += 1
                 history = history + row.iloc[4:]
-                st.write(history)
+        for i in range(len(history)):
+            mistakes = (attempt_count - history[i])/attempt_count
+            history[i] = mistakes + 0.1
                 
-
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
-            st.session_state.questions = df.sample(n=min(len(df),10), random_state=random.randint(0, 99999)).reset_index(drop=True)
+            st.session_state.questions = df.sample(n=min(len(df),10), weights=history, random_state=random.randint(0, 99999)).reset_index(drop=True)
 
         questions = st.session_state.questions
 
