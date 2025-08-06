@@ -71,7 +71,7 @@ else:
         for i in range(len(history)):
             mistakes = (attempt_count - history[i])/attempt_count
             history[i] = mistakes + 0.1
-        st.write(sum(history))
+        st.write(history)
                 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
