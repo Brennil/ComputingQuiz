@@ -64,7 +64,7 @@ else:
         logdata = sheet.get_all_records()
         records = pd.DataFrame(logdata)
         history = [0]*len(df)
-        for i, row in records.itterrows():
+        for i, row in records.iterrows():
             if row["Email"] == st.user.email:
                 history = history + row.iloc[4:]
                 st.write(history)
