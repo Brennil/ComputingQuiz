@@ -53,7 +53,6 @@ else:
         log = "Log"+chapter
         try:
             responses_ws = spread.worksheet(log)
-            st.write(log)
         except:
             responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
             qn = [x+1 for x in range(len(df))]
@@ -63,6 +62,7 @@ else:
         logsheet = spread.worksheet(log)
         logdata = sheet.get_all_records()
         records = pd.DataFrame(logdata)
+        st.write(records)
         history = [0]*len(df)
         for i, row in records.iterrows():
             st.write(row)
