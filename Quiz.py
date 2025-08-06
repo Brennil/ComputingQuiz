@@ -56,7 +56,8 @@ else:
             st.write(log)
         except:
             responses_ws = spread.add_worksheet(title=log, rows="1000", cols="10")
-            responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"])
+            qn = [int(x) for x in range(len(df))]
+            responses_ws.append_row(["Email", "Name", "Accuracy", "Timestamp"]+qn)
 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
