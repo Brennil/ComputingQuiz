@@ -62,12 +62,13 @@ else:
         logsheet = spread.worksheet(log)
         logdata = logsheet.get_all_records()
         records = pd.DataFrame(logdata)
-        history = list([0]*len(df))
+        history = [0]*len(df)
         attempt_count = 0
         for i, row in records.iterrows():
             if row['Email'] == st.user.email:
                 attempt_count += 1
-                history = history + list(row.iloc[4:])
+                history = history + row.iloc[4:]
+        history = list(history)
         for i in range(len(history)):
             mistakes = (attempt_count - history[i])/attempt_count
             history[i] = mistakes + 0.1
