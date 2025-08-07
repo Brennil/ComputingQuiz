@@ -67,7 +67,9 @@ else:
         for i, row in records.iterrows():
             if row['Email'] == st.user.email:
                 attempt_count += 1
-                history = history + row.iloc[4:]
+                for x in range(4, len(row)):
+                    if row.iloc[x] == "NA": history = history + [0]
+                    else: history = history + row.iloc[x]
         if attempt_count > 0:
             history = list(history)
             for i in range(len(history)):
@@ -94,7 +96,7 @@ else:
         # === FEEDBACK ===
         if submitted:
             correct = 0
-            correct_list = [0] * len(questions)
+            correct_list = ["NA"] * len(questions)
             st.markdown("## ✅ Results")
             for i, row in questions.iterrows():
                 user_answer = responses[i].strip().lower()
@@ -105,6 +107,7 @@ else:
                     correct += 1
                 else:
                     st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
+                    correct_list[int(row['Question'])-1] = 0
 
             st.markdown(f"### 🎯 You got **{correct} out of {len(questions)}** correct.")
 
