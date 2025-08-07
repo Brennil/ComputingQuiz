@@ -68,8 +68,9 @@ else:
             if row['Email'] == st.user.email:
                 attempt_count += 1
                 for x in range(4, len(row)):
-                    if row.iloc[x] == "NA": history = history + [0]
-                    else: history = history + [row.iloc[x]]
+                    if row.iloc[x] == "NA": history[x-4] += 0
+                    else: history[x-4) += row.iloc[x]
+        
         if attempt_count > 0:
             history = list(history)
             for i in range(len(history)):
