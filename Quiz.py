@@ -68,10 +68,11 @@ else:
             if row['Email'] == st.user.email:
                 attempt_count += 1
                 history = history + row.iloc[4:]
-        history = list(history)
-        for i in range(len(history)):
-            mistakes = (attempt_count - history[i])/attempt_count
-            history[i] = mistakes + 0.1
+        if attempt_count > 0:
+            history = list(history)
+            for i in range(len(history)):
+                mistakes = (attempt_count - history[i])/attempt_count
+                history[i] = mistakes + 0.1
         st.write(history)
                 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
