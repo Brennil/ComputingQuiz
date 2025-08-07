@@ -96,7 +96,7 @@ else:
         # === FEEDBACK ===
         if submitted:
             correct = 0
-            correct_list = ["NA"] * len(questions)
+            correct_list = ["NA"] * len(df)
             st.markdown("## ✅ Results")
             for i, row in questions.iterrows():
                 user_answer = responses[i].strip().lower()
