@@ -69,7 +69,7 @@ else:
                 attempt_count += 1
                 for x in range(4, len(row)):
                     if row.iloc[x] == "NA": history = history + [0]
-                    else: history = history + row.iloc[x]
+                    else: history = history + [row.iloc[x]]
         if attempt_count > 0:
             history = list(history)
             for i in range(len(history)):
