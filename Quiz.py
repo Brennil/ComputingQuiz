@@ -70,7 +70,7 @@ else:
                 for x in range(4, len(row)):
                     st.write(row.iloc[x], type(row.iloc[x]))
                     if row.iloc[x] == "NA": history[x-4] += 0
-                    else: history[x-4) += row.iloc[x]
+                    else: history[x-4] += row.iloc[x]
         
         if attempt_count > 0:
             history = list(history)
