@@ -73,6 +73,7 @@ else:
             for i in range(len(history)):
                 mistakes = (attempt_count - history[i])/attempt_count
                 history[i] = mistakes + 0.1
+        else: history = list([1/len(df)] * len(df))
         st.write(history)
                 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
