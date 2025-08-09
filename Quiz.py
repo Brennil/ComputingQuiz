@@ -30,7 +30,7 @@ if not st.user.is_logged_in:
 else:
     st.subheader(f"Welcome, {st.user.name}!")
     st.write("Type your answers and click Submit to see your score.")
-    st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes as necessary.")
+    st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes or brackets as necessary.")
 
     if "quiz_started" not in st.session_state:
         st.session_state.quiz_started = False
@@ -68,7 +68,6 @@ else:
             if row['Email'] == st.user.email:
                 attempt_count += 1
                 for x in range(4, len(row)):
-                    st.write(row.iloc[x])
                     if row.iloc[x] == "NA": history[x-4] += 0
                     else: history[x-4] += row.iloc[x]
         
@@ -78,7 +77,6 @@ else:
                 mistakes = (attempt_count - history[i])/attempt_count
                 history[i] = mistakes + 0.1
         else: history = list([1/len(df)] * len(df))
-        st.write(history)
                 
         # === STORE SELECTED QUESTIONS IN SESSION STATE ===
         if "questions" not in st.session_state or st.session_state.questions is None:
