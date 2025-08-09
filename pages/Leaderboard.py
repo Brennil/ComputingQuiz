@@ -21,12 +21,23 @@ spread = load_spread()
 
 st.title("👑 Leaderboards")
 
-options = ["01", "02", "03"]
-chapter = st.selectbox("Choose a chapter:", options)
+options = ["01 Computer Architecture", "02 Data Representation", "03 Logic Gates", "04 Programming", "05 Input Validation", "06 Testing and Debugging", "07 Algorithm Design", "08 Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12 Intellectual Property", "13 Impact of Computing", "14 Emerging Technology"]
+    chapter = st.selectbox("Choose a chapter:", options)[:2]
 go = st.button("Go!")
 
 if go:
-    sheet = spread.worksheet("Log"+chapter)
+# === LOAD OR CREATE USERLOG ===
+    log = "Log"+chapter
+    try:
+        sheet = spread.worksheet(log)
+    except:
+        sheet = spread.add_worksheet(title=log, rows="1000", cols="10")
+        source = spread.worksheet(chapter)
+        source_data = source.get_all_records()
+        df = pd.DataFrame(source_data)
+        qn = [x+1 for x in range(len(df))]
+        sheet.append_row(["Email", "Name", "Accuracy", "Timestamp"]+qn)
+        
     data = sheet.get_all_records()
     df = pd.DataFrame(data)
     top = {}
