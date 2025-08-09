@@ -36,8 +36,8 @@ else:
         st.session_state.quiz_started = False
         st.session_state.questions = None  
         
-    options = ["01", "02", "03"]
-    chapter = st.selectbox("Choose a chapter:", options)
+    options = ["01 Computer Architecture", "02 Data Representation", "03 Logic Gates", "04 Programming", "05 Input Validation", "06 Testing and Debugging", "07 Algorithm Design", "08 Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12 Intellectual Property", "13 Impact of Computing", "14 Emerging Technology"]
+    chapter = st.selectbox("Choose a chapter:", options)[:2]
     go = st.button("Go!")
 
     if go: 
