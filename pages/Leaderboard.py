@@ -49,7 +49,7 @@ if go:
     
     top_list = [(top[key], key) for key in top.keys()]
     top_sorted = sorted(top_list, reverse=True)
-    top_ranked = [(str(i+1), top_sorted[i][1],str(round(top_sorted[i][0],2))) for i in range(len(top_sorted))] 
+    top_ranked = [(str(i+1), top_sorted[i][1],str(round(top_sorted[i][0],2))) for i in range(len(top_sorted)) if round(top_sorted[i][0],2) >= 50] 
         
      # style
     th_props = [
