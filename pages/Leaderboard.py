@@ -21,8 +21,9 @@ spread = load_spread()
 
 st.title("👑 Leaderboards")
 
-options = ["01 Computer Architecture", "02 Data Representation", "03 Logic Gates", "04 Programming", "05 Input Validation", "06 Testing and Debugging", "07 Algorithm Design", "08 Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12 Intellectual Property", "13 Impact of Computing", "14 Emerging Technology"]
-chapter = st.selectbox("Choose a chapter:", options)[:2]
+options = ["01 Computer Architecture", "02-03 Data Representation; Logic Gates", "04 Programming", "05-08 Input Validation; Testing and Debugging; Algorithm Design; Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12-14 Intellectual Property; Impact of Computing; Emerging Technologies"]
+chapter_sel = st.selectbox("Choose a chapter:", options)
+chapter = chapter_sel[:chapter_sel.find(" ")]
 go = st.button("Go!")
 
 if go:
