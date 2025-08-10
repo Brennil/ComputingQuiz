@@ -96,18 +96,17 @@ else:
         # === FEEDBACK ===
         if submitted:
             correct = 0
-            correct_list = ["NA"] * len(df)
+            ans_list = ["NA"] * len(df)
             st.markdown("## ✅ Results")
             for i, row in questions.iterrows():
                 user_answer = responses[i].strip().lower()
                 correct_answer = str(row['Key Word']).strip().lower()
+                ans_list[int(row['Question'])-1] = user_answer
                 if user_answer == correct_answer:
                     st.success(f"Q{i+1}: Correct ✅")
-                    correct_list[int(row['Question'])-1] = 1
                     correct += 1
                 else:
                     st.error(f"Q{i+1}: Incorrect ❌ (Correct answer: **{row['Key Word']}**)")
-                    correct_list[int(row['Question'])-1] = 0
 
             st.markdown(f"### 🎯 You got **{correct} out of {len(questions)}** correct.")
 
@@ -116,7 +115,7 @@ else:
             local_tz = pytz.timezone('ETC/GMT-8')
             local_time = utc_now.astimezone(local_tz)
             timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
-            responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+correct_list)
+            responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
             st.success("📥 Your attempt has been recorded.")
 
             if st.button("🔁 Start a New Quiz"):
