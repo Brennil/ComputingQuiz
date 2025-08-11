@@ -65,12 +65,13 @@ else:
         records = pd.DataFrame(logdata)
         history = [0]*len(df)
         attempt_count = 0
+        st.write(df['Questions'])
         for i, row in records.iterrows():
             if row['Email'] == st.user.email:
                 attempt_count += 1
                 for x in range(4, len(row)):
                     if row.iloc[x] == "NA": history[x-4] += 0
-                    else: history[x-4] += row.iloc[x]
+                    else: history[x-4] += int(row.iloc[x] == df['Questions'][x-4]])
         
         if attempt_count > 0:
             history = list(history)
