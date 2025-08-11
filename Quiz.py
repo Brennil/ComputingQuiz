@@ -70,11 +70,7 @@ else:
                 attempt_count += 1
                 for x in range(4, len(row)):
                     if row.iloc[x] == "NA": history[x-4] += 0
-                    else:
-                        st.write(row.iloc[x].strip().lower())
-                        st.write(df['Key Word'][x-4].strip().lower())
-                        history[x-4] += int(row.iloc[x].strip().lower() == df['Key Word'][x-4].strip().lower())
-        st.write(history)
+                    else: history[x-4] += int(row.iloc[x].strip().lower() == df['Key Word'][x-4].strip().lower())
         
         if attempt_count > 0:
             history = list(history)
