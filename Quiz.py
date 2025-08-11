@@ -71,9 +71,9 @@ else:
                 for x in range(4, len(row)):
                     if row.iloc[x] == "NA": history[x-4] += 0
                     else:
-                        st.write(row.iloc[x])
-                        st.write(df['Key Word'][x-4])
-                        history[x-4] += int(row.iloc[x] == df['Key Word'][x-4])
+                        st.write(row.iloc[x].strip().lower())
+                        st.write(df['Key Word'][x-4].strip().lower())
+                        history[x-4] += int(row.iloc[x].strip().lower() == df['Key Word'][x-4].strip().lower())
         st.write(history)
         
         if attempt_count > 0:
