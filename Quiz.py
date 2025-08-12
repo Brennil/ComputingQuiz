@@ -119,6 +119,14 @@ else:
             timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
             responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
             st.success("📥 Your attempt has been recorded. Refresh the page to get a new quiz.")
+
+            if st.button("🔁 Start a New Quiz"):
+                if "questions" in st.session_state:
+                    del st.session_state.questions
+                if "quiz_started" in st.session_state:
+                    st.session_state.quiz_started = False
+                go = False
+                st.rerun()
             
     
     st.button("Log out", on_click=st.logout)
