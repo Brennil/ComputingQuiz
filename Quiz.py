@@ -44,12 +44,8 @@ else:
     if go: 
         st.session_state.quiz_started = True
         st.session_state.questions = None  
-        try:
-            for k in list(st.session_state.input_keys):
-                st.session_state.pop(k, None)
+        if "input_keys" in st.session_state:
             st.session_state.input_keys.clear()
-        except:
-            pass
 
     if st.session_state.quiz_started:
         sheet = spread.worksheet(chapter)
