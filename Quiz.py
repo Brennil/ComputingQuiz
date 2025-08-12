@@ -63,6 +63,8 @@ def quiz():
         st.session_state.questions = df.sample(n=min(len(df),10), weights=history, random_state=random.randint(0, 99999)).reset_index(drop=True)
 
     questions = st.session_state.questions
+    st.write(st.session_state.quiz_id)
+    st.write(questions)
 
     # === FORM ===
     with st.form(f"quiz_form_{st.session_state.quiz_id}"):
