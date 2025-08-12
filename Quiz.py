@@ -23,6 +23,12 @@ def login_screen():
     st.subheader("Please log in to play.")
     st.button("Log in with Google", on_click=st.login)
 
+def reset_quiz():
+    # clear previous questions and inputs
+    st.session_state.questions = None
+    st.session_state.quiz_id += 1   # NEW namespace for all widget keys
+    st.rerun()                      # or st.experimental_rerun() on older Streamlit
+
 st.title("📝 Keywords Quiz")
 
 if not st.user.is_logged_in:
@@ -35,11 +41,12 @@ else:
     if "quiz_started" not in st.session_state:
         st.session_state.quiz_started = False
         st.session_state.questions = None  
+        st.session_state.quiz_id = 0
         
     options = ["01 Computer Architecture", "02-03 Data Representation; Logic Gates", "04 Programming", "05-08 Input Validation; Testing and Debugging; Algorithm Design; Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12-14 Intellectual Property; Impact of Computing; Emerging Technologies"]
     chapter_sel = st.selectbox("Choose a chapter:", options)
     chapter = chapter_sel[:chapter_sel.find(" ")]
-    go = st.button("Go!")
+    go = st.button("Go!", on_click=reset_quiz)
 
     if go: 
         st.session_state.quiz_started = True
@@ -90,11 +97,11 @@ else:
         questions = st.session_state.questions
 
         # === FORM ===
-        with st.form("quiz_form"):
+        with st.form(f"quiz_form_{st.session_state.quiz_id}"):
             responses = []
             for i, row in questions.iterrows():
                 st.subheader(f"Q{i+1}: {row['Definition']}")
-                answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}", autocomplete="off")
+                answer = st.text_input(f"Your answer for Q{i+1}:", key=f"ans_{i}_{st.session_state.quiz_id}", autocomplete="off")
                 responses.append(answer)
             submitted = st.form_submit_button("Submit")
 
