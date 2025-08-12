@@ -100,7 +100,7 @@ def quiz():
             st.session_state.input_keys.clear()
             st.session_state.pop("questions", None)   # forces fresh sampling below
             del st.session_state.quiz_started
-            st.rerun(scope="fragment")
+            st.rerun()
             st.session_state.quiz_started = True
             quiz()
 
