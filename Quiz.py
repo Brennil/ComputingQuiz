@@ -100,13 +100,12 @@ def quiz():
         responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
         st.success("📥 Your attempt has been recorded. Refresh the page to get a new quiz.")
 
-        if st.button("🔁 Start a New Quiz"):
+        if st.button("🔁 Start a New Quiz", on_click=reset_quiz):
             if "questions" in st.session_state:
                 del st.session_state.questions
             for k in list(st.session_state.input_keys):
                 st.session_state.pop(k, None)
             st.session_state.input_keys.clear()
-            st.session_state.quiz_id += 1
             st.rerun()
 
 st.title("📝 Keywords Quiz")
