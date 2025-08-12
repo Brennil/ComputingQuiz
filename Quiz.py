@@ -112,9 +112,13 @@ if not st.user.is_logged_in:
     login_screen()
 else:
     st.subheader(f"Welcome, {st.user.name}!")
+    st.write("**How to Play**")
     st.write("Type your answers and click Submit to see your score.")
     st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes or brackets as necessary.")
-
+    st.write("The questions are taken randomly from the set of keyword definitions for the chapter/chapters you have selected to play.")
+    st.write("As you keep playing the same chapter/chapters, the webapp learns your strengths and weaknesses. You will be more likely to see questions you have not tried before, or questions you have gotten wrong before.")
+    st.write("Happy playing/learning!")    
+    
     if "quiz_started" not in st.session_state:
         st.session_state.quiz_started = False
         st.session_state.questions = None  
