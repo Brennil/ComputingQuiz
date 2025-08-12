@@ -23,6 +23,7 @@ def login_screen():
     st.subheader("Please log in with your SST account to play.")
     st.button("Log in with Google", on_click=st.login)
 
+@st.fragment
 def quiz():
     # === LOAD OR CREATE USERLOG ===
     log = "Log"+chapter
@@ -124,7 +125,6 @@ else:
         st.session_state.quiz_started = True
         st.session_state.questions = None  
 
-    @st.fragment
     if st.session_state.quiz_started:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
