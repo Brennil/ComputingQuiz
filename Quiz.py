@@ -120,7 +120,10 @@ else:
             st.success("📥 Your attempt has been recorded.")
 
             if st.button("🔁 Start a New Quiz"):
-                del st.session_state.questions
+                if "questions" in st.session_state:
+                    del st.session_state.questions
+                if "quiz_started" in st.session_state:
+                    st.session_state.quiz_started = False
                 st.rerun()
     
     st.button("Log out", on_click=st.logout)
