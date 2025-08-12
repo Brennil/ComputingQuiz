@@ -139,7 +139,7 @@ else:
                 st.session_state.input_keys.clear()
                 if "quiz_started" in st.session_state:
                     st.session_state.quiz_started = False
-                go = False
+                st.session_state.quiz_id += 1
                 st.rerun()
             
     
