@@ -20,7 +20,7 @@ def load_spread():
 spread = load_spread()
 
 def login_screen():
-    st.subheader("Please log in to play.")
+    st.subheader("Please log in with your SST account to play.")
     st.button("Log in with Google", on_click=st.login)
 
 def quiz():
@@ -98,8 +98,11 @@ def quiz():
         st.success("📥 Your attempt has been recorded.")
 
         if st.button("🔁 Start a New Quiz"):
-            del st.session_state.questions
-            st.rerun()
+            for k in list(st.session_state.input_keys):
+                st.session_state.pop(k, None)
+            st.session_state.input_keys.clear()
+            st.session_state.pop("questions", None)   # forces fresh sampling below
+            st.session_state.quiz_started = True      # stay in quiz mode
             quiz()
 
 st.title("📝 Keywords Quiz")
