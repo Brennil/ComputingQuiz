@@ -101,7 +101,6 @@ def quiz():
             st.session_state.pop("questions", None)   # forces fresh sampling below
             del st.session_state.quiz_started
             st.rerun()
-            quiz()
 
 st.title("📝 Keywords Quiz")
 
