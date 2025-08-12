@@ -48,7 +48,6 @@ else:
             for key in list(st.session_state.input_keys):
                 st.session_state.pop(key, None)
             st.session_state.input_keys.clear()
-            st.write("Skibidi")
 
     if st.session_state.quiz_started:
         sheet = spread.worksheet(chapter)
