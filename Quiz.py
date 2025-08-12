@@ -99,7 +99,7 @@ def quiz():
             st.session_state.input_keys.clear()
             st.session_state.pop("questions", None)   # forces fresh sampling below
             st.session_state.quiz_started = True      # stay in quiz mode
-            st.rerun(*, scope="fragment")
+            st.rerun(scope="fragment")
             quiz()
 
 st.title("📝 Keywords Quiz")
