@@ -23,7 +23,32 @@ def login_screen():
     st.subheader("Please log in with your SST account to play.")
     st.button("Log in with Google", on_click=st.login)
 
-@st.fragment
+def main():
+    st.subheader(f"Welcome, {st.user.name}!")
+    st.write("Type your answers and click Submit to see your score.")
+    st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes or brackets as necessary.")
+
+    if "quiz_started" not in st.session_state:
+        st.session_state.quiz_started = False
+        st.session_state.questions = None  
+        
+    options = ["01 Computer Architecture", "02-03 Data Representation; Logic Gates", "04 Programming", "05-08 Input Validation; Testing and Debugging; Algorithm Design; Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12-14 Intellectual Property; Impact of Computing; Emerging Technologies"]
+    chapter_sel = st.selectbox("Choose a chapter:", options)
+    chapter = chapter_sel[:chapter_sel.find(" ")]
+    go = st.button("Go!")
+
+    if not st.session_state.quiz_started:
+        if go:
+            st.session_state.quiz_started = True
+            st.session_state.questions = None  
+            st.rerun()
+    else:
+        sheet = spread.worksheet(chapter)
+        data = sheet.get_all_records()
+        df = pd.DataFrame(data)
+
+        quiz()
+        
 def quiz():
     # === LOAD OR CREATE USERLOG ===
     log = "Log"+chapter
@@ -107,29 +132,6 @@ st.title("📝 Keywords Quiz")
 if not st.user.is_logged_in:
     login_screen()
 else:
-    st.subheader(f"Welcome, {st.user.name}!")
-    st.write("Type your answers and click Submit to see your score.")
-    st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes or brackets as necessary.")
-
-    if "quiz_started" not in st.session_state:
-        st.session_state.quiz_started = False
-        st.session_state.questions = None  
-        
-    options = ["01 Computer Architecture", "02-03 Data Representation; Logic Gates", "04 Programming", "05-08 Input Validation; Testing and Debugging; Algorithm Design; Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12-14 Intellectual Property; Impact of Computing; Emerging Technologies"]
-    chapter_sel = st.selectbox("Choose a chapter:", options)
-    chapter = chapter_sel[:chapter_sel.find(" ")]
-    go = st.button("Go!")
-
-    if not st.session_state.quiz_started:
-        if go:
-            st.session_state.quiz_started = True
-            st.session_state.questions = None  
-            st.rerun()
-    else:
-        sheet = spread.worksheet(chapter)
-        data = sheet.get_all_records()
-        df = pd.DataFrame(data)
-
-        quiz()
+    main()
 
     st.button("Log out", on_click=st.logout)
