@@ -124,9 +124,9 @@ else:
 
     if not st.session_state.quiz_started:
         if go:
-        st.session_state["form_loaded"] = True
-        st.session_state.questions = None  
-        st.rerun()
+            st.session_state["form_loaded"] = True
+            st.session_state.questions = None  
+            st.rerun()
     else:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
