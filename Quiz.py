@@ -45,6 +45,8 @@ else:
         st.session_state.quiz_started = True
         st.session_state.questions = None  
         if "input_keys" in st.session_state:
+            for key in list(st.session_state.input_keys):
+                st.session_state.pop(key, None)
             st.session_state.input_keys.clear()
 
     if st.session_state.quiz_started:
