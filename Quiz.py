@@ -99,7 +99,7 @@ def quiz():
                 st.session_state.pop(k, None)
             st.session_state.input_keys.clear()
             st.session_state.pop("questions", None)   # forces fresh sampling below
-            st.session_state.quiz_started = False
+            del st.session_state.quiz_started
             st.rerun(scope="fragment")
             st.session_state.quiz_started = True
             quiz()
@@ -122,11 +122,12 @@ else:
     chapter = chapter_sel[:chapter_sel.find(" ")]
     go = st.button("Go!")
 
-    if go: 
-        st.session_state.quiz_started = True
+    if not st.session_state.quiz_started:
+        if go:
+        st.session_state["form_loaded"] = True
         st.session_state.questions = None  
-
-    if st.session_state.quiz_started:
+        st.rerun()
+    else:
         sheet = spread.worksheet(chapter)
         data = sheet.get_all_records()
         df = pd.DataFrame(data)
