@@ -18,10 +18,6 @@ def load_spread():
     return spread
 
 spread = load_spread()
-global chapter
-global sheet
-global data
-global df
 
 def login_screen():
     st.subheader("Please log in with your SST account to play.")
@@ -32,6 +28,11 @@ def main():
     st.write("Type your answers and click Submit to see your score.")
     st.write("Answers are not case-sensitive. However, they are punctuation-sensitive. Please remember to include any dashes or brackets as necessary.")
 
+    global chapter
+    global sheet
+    global data
+    global df
+    
     if "quiz_started" not in st.session_state:
         st.session_state.quiz_started = False
         st.session_state.questions = None  
