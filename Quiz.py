@@ -27,7 +27,6 @@ def reset_quiz():
     # clear previous questions and inputs
     st.session_state.questions = None
     st.session_state.quiz_id += 1   # NEW namespace for all widget keys
-    st.rerun()                      # or st.experimental_rerun() on older Streamlit
 
 st.title("📝 Keywords Quiz")
 
