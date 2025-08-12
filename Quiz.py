@@ -124,7 +124,7 @@ else:
 
     if not st.session_state.quiz_started:
         if go:
-            st.session_state["form_loaded"] = True
+            st.session_state.quiz_started = True
             st.session_state.questions = None  
             st.rerun()
     else:
