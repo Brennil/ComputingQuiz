@@ -90,7 +90,7 @@ else:
             responses = []
             for i, row in questions.iterrows():
                 st.subheader(f"Q{i+1}: {row['Definition']}")
-                answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}")
+                answer = st.text_input(f"Your answer for Q{i+1}:", key=f"q{i}", autocomplete="off")
                 responses.append(answer)
             submitted = st.form_submit_button("Submit")
 
@@ -121,6 +121,6 @@ else:
 
             if st.button("🔁 Start a New Quiz"):
                 del st.session_state.questions
-                st.experimental_rerun()
+                st.rerun()
     
     st.button("Log out", on_click=st.logout)
