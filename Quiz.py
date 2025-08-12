@@ -24,10 +24,6 @@ def login_screen():
     st.button("Log in with Google", on_click=st.login)
 
 def quiz():
-    sheet = spread.worksheet(chapter)
-    data = sheet.get_all_records()
-    df = pd.DataFrame(data)
-
     # === LOAD OR CREATE USERLOG ===
     log = "Log"+chapter
     try:
@@ -103,6 +99,7 @@ def quiz():
             st.session_state.input_keys.clear()
             st.session_state.pop("questions", None)   # forces fresh sampling below
             st.session_state.quiz_started = True      # stay in quiz mode
+            st.rerun(*, scope="fragment")
             quiz()
 
 st.title("📝 Keywords Quiz")
@@ -127,7 +124,12 @@ else:
         st.session_state.quiz_started = True
         st.session_state.questions = None  
 
+    @st.fragment
     if st.session_state.quiz_started:
+        sheet = spread.worksheet(chapter)
+        data = sheet.get_all_records()
+        df = pd.DataFrame(data)
+
         quiz()
 
     st.button("Log out", on_click=st.logout)
