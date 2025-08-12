@@ -123,6 +123,9 @@ else:
             if st.button("🔁 Start a New Quiz"):
                 if "questions" in st.session_state:
                     del st.session_state.questions
+                for k in list(st.session_state.input_keys):
+                    st.session_state.pop(k, None)
+                st.session_state.input_keys.clear()
                 if "quiz_started" in st.session_state:
                     st.session_state.quiz_started = False
                 go = False
