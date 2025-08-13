@@ -106,7 +106,7 @@ def quiz():
             st.session_state.input_keys.clear()
             st.rerun()
 
-st.title("📝 Keywords Quiz")
+st.title("📝 Computing Keywords Quiz")
 
 if not st.user.is_logged_in:
     login_screen()
