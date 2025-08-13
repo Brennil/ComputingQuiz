@@ -86,6 +86,7 @@ def quiz():
         # Dynamically disable until all filled, and also after grading once
         already_graded = quiz_id in st.session_state.graded_quiz_ids
         submit_disabled = (not all_filled(input_keys)) or already_graded
+        st.write(input_keys)
         submitted = st.form_submit_button("Submit", disabled=submit_disabled)
 
     
@@ -118,6 +119,7 @@ def quiz():
         local_time = utc_now.astimezone(local_tz)
         timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
         responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
+        st.session_state.graded_quiz_ids.add(quiz_id)
         st.success("📥 Your attempt has been recorded. Refresh the page to get a new quiz.")
 
         if st.button("🔁 Start a New Quiz", on_click=reset_quiz):
