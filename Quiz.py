@@ -84,6 +84,8 @@ def quiz():
 
     # === FEEDBACK ===
     if submitted:
+        st.session_state.graded_quiz_ids.add(quiz_id)
+        already_graded = quiz_id in st.session_state.graded_quiz_ids
         blanks = [i for i, a in enumerate(responses) if not (a or "").strip()]
         if blanks:
             st.error(f"Please answer all questions (missing: {', '.join(str(i+1) for i in blanks)})")
@@ -109,8 +111,6 @@ def quiz():
         local_time = utc_now.astimezone(local_tz)
         timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
         responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
-        st.session_state.graded_quiz_ids.add(quiz_id)
-        already_graded = quiz_id in st.session_state.graded_quiz_ids
         st.success("📥 Your attempt has been recorded.")
 
         if st.button("🔁 Start a New Quiz", on_click=reset_quiz):
