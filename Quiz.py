@@ -86,7 +86,7 @@ def quiz():
         # Dynamically disable until all filled, and also after grading once
         already_graded = quiz_id in st.session_state.graded_quiz_ids
         submit_disabled = (not all_filled(input_keys)) or already_graded
-        st.write(input_keys)
+        st.write([st.session_state.get(k, "") for k in input_keys])
         submitted = st.form_submit_button("Submit", disabled=submit_disabled)
 
     
