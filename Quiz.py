@@ -83,10 +83,11 @@ def quiz():
         submitted = st.form_submit_button("Submit", disabled=already_graded)
 
     # === FEEDBACK ===
-    blanks = [i for i, a in enumerate(responses) if not (a or "").strip()]
-    if blanks:
-        st.error(f"Please answer all questions (missing: {', '.join(str(i+1) for i in blanks)})")
-        st.stop()  # abort grading
+    if submitted:
+        blanks = [i for i, a in enumerate(responses) if not (a or "").strip()]
+        if blanks:
+            st.error(f"Please answer all questions (missing: {', '.join(str(i+1) for i in blanks)})")
+            st.stop()  # abort grading
         correct = 0
         ans_list = ["NA"] * len(df)
         st.markdown("## ✅ Results")
