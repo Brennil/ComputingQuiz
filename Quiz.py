@@ -28,7 +28,7 @@ def reset_quiz():
     st.session_state.questions = None
     st.session_state.quiz_id += 1   # NEW namespace for all widget keys
 
-def all_filled():
+def all_filled(input_keys):
     return all((st.session_state.get(k, "") or "").strip() != "" for k in input_keys)
 
 def quiz():
@@ -86,7 +86,7 @@ def quiz():
 
         # Dynamically disable until all filled, and also after grading once
         already_graded = quiz_id in st.session_state.graded_quiz_ids
-        submit_disabled = (not all_filled()) or already_graded
+        submit_disabled = (not all_filled(input_keys)) or already_graded
         submitted = st.form_submit_button("Submit", disabled=submit_disabled)
 
     
