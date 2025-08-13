@@ -84,8 +84,13 @@ def quiz():
 
     # === FEEDBACK ===
     if submitted:
-        st.session_state.graded_quiz_ids.add(quiz_id)
-        already_graded = quiz_id in st.session_state.graded_quiz_ids
+        if quiz_id in st.session_state.graded_quiz_ids:
+            # second (or later) click is ignored
+            st.info("Your submission is already recorded.")
+        else:
+            # LOCK FIRST so a fast second click won’t double-grade/log
+            st.session_state.graded_quiz_ids.add(quiz_id)
+            already_graded = quiz_id in st.session_state.graded_quiz_ids
         blanks = [i for i, a in enumerate(responses) if not (a or "").strip()]
         if blanks:
             st.error(f"Please answer all questions (missing: {', '.join(str(i+1) for i in blanks)})")
