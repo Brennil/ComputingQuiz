@@ -28,9 +28,6 @@ def reset_quiz():
     st.session_state.questions = None
     st.session_state.quiz_id += 1   # NEW namespace for all widget keys
 
-def all_filled(input_keys):
-    return all((st.session_state.get(k, "") or "").strip() != "" for k in input_keys)
-
 def quiz():
     # === LOAD OR CREATE USERLOG ===
     log = "Log"+chapter
@@ -68,8 +65,6 @@ def quiz():
     quiz_id = st.session_state.quiz_id
     
     questions = st.session_state.questions
-    # Track keys for THIS quiz only
-    input_keys = [f"ans_{i}_{quiz_id}" for i in range(10)]
 
     # One-time guard to stop repeated submits/logging for this quiz
     if "graded_quiz_ids" not in st.session_state:
@@ -85,19 +80,13 @@ def quiz():
 
         # Dynamically disable until all filled, and also after grading once
         already_graded = quiz_id in st.session_state.graded_quiz_ids
-        submit_disabled = (not all_filled(input_keys)) or already_graded
-        st.write([st.session_state.get(k, "") for k in input_keys])
-        submitted = st.form_submit_button("Submit", disabled=submit_disabled)
-
-    
-    # Hint for users if not all filled
-    if not all_filled(input_keys):
-        st.info("Please answer all questions to enable Submit.")
-
+        submitted = st.form_submit_button("Submit", disabled=already_graded)
 
     # === FEEDBACK ===
-    # Grade exactly once
-    if submitted and (quiz_id not in st.session_state.graded_quiz_ids):
+    blanks = [i for i, a in enumerate(responses) if not (a or "").strip()]
+    if blanks:
+        st.error(f"Please answer all questions (missing: {', '.join(str(i+1) for i in blanks)})")
+        st.stop()  # abort grading
         correct = 0
         ans_list = ["NA"] * len(df)
         st.markdown("## ✅ Results")
