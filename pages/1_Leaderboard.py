@@ -21,6 +21,8 @@ spread = load_spread()
 
 st.title("👑 Leaderboards")
 st.write("This leaderboard captures your top score for each chapter/chapters above 50% accuracy.")
+st.write("Where do you rank on the leaderboard? 😉")
+
 
 options = ["01 Computer Architecture", "02-03 Data Representation; Logic Gates", "04 Programming", "05-08 Input Validation; Testing and Debugging; Algorithm Design; Software Engineering", "09 Spreadsheets", "10 Networking", "11 Security and Privacy", "12-14 Intellectual Property; Impact of Computing; Emerging Technologies"]
 chapter_sel = st.selectbox("Choose a chapter:", options)
