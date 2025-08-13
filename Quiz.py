@@ -68,9 +68,8 @@ def quiz():
     quiz_id = st.session_state.quiz_id
     
     questions = st.session_state.questions
-    N = len(questions)
     # Track keys for THIS quiz only
-    input_keys = [f"ans_{i}_{quiz_id}" for i in range(N)]
+    input_keys = [f"ans_{i}_{quiz_id}" for i in range(10)]
 
     # One-time guard to stop repeated submits/logging for this quiz
     if "graded_quiz_ids" not in st.session_state:
