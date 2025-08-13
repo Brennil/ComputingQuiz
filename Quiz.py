@@ -109,8 +109,11 @@ def quiz():
         local_time = utc_now.astimezone(local_tz)
         timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
         responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
+        st.write(st.session_state.graded_quiz_ids)
+        st.write(quiz_id)
         st.session_state.graded_quiz_ids.add(quiz_id)
-        st.success("📥 Your attempt has been recorded. Refresh the page to get a new quiz.")
+        st.write(st.session_state.graded_quiz_ids)
+        st.success("📥 Your attempt has been recorded.")
 
         if st.button("🔁 Start a New Quiz", on_click=reset_quiz):
             if "questions" in st.session_state:
