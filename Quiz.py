@@ -83,10 +83,12 @@ def quiz():
         submitted = st.form_submit_button("Submit", disabled=already_graded)
 
     # === FEEDBACK ===
+    reentry = False
     if submitted:
         if quiz_id in st.session_state.graded_quiz_ids:
             # second (or later) click is ignored
             st.info("Your submission is already recorded.")
+            reentry = True
         else:
             # LOCK FIRST so a fast second click won’t double-grade/log
             st.session_state.graded_quiz_ids.add(quiz_id)
@@ -115,8 +117,9 @@ def quiz():
         local_tz = pytz.timezone('ETC/GMT-8')
         local_time = utc_now.astimezone(local_tz)
         timestamp = local_time.strftime("%Y-%m-%d %H:%M:%S")
-        responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
-        st.success("📥 Your attempt has been recorded.")
+        if not reentry:
+            responses_ws.append_row([st.user.email, st.user.name, correct/len(questions)*100, timestamp]+ans_list)
+            st.success("📥 Your attempt has been recorded.")
 
         if st.button("🔁 Start a New Quiz", on_click=reset_quiz):
             if "questions" in st.session_state:
