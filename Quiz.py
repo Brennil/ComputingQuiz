@@ -91,7 +91,7 @@ def quiz():
 
     
     # Hint for users if not all filled
-    if not all_filled():
+    if not all_filled(input_keys):
         st.info("Please answer all questions to enable Submit.")
 
 
