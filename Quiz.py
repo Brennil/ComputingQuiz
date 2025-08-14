@@ -17,7 +17,22 @@ def load_spread():
     spread = client.open_by_url(SHEET_URL)
     return spread
 
-spread = load_spread()
+# Initiate retry if there is an API Error.
+exp = 0
+while True:
+    try:
+        spread = load_spread()
+        break
+    except:
+        if 2**exp > 120: 
+            st.write("Sorry, we are having issues connecting to our database. Please try again later.")
+            st.stop()
+        else:
+            st.write("Error connecting to database... We will try again in {} seconds...".format(2**exp))
+            waittime = 2**exp + random.random()/100
+            time.sleep(waittime)
+            exp += 1
+
 
 def login_screen():
     st.subheader("Please log in to play.")
